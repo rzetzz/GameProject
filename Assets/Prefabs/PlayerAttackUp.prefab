@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1674072707544643668}
   - component: {fileID: 1674072707544643667}
   - component: {fileID: 1674072707544643666}
+  - component: {fileID: 1930908112015180529}
   m_Layer: 0
   m_Name: PlayerAttackUp
   m_TagString: Attack
@@ -119,3 +120,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackLocation: {fileID: 0}
+--- !u!70 &1930908112015180529
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674072707544643671}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04, y: -0.26}
+  m_Size: {x: 1.57, y: 1.14}
+  m_Direction: 0

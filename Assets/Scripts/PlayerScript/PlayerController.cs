@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private float coyoteTime = 0.15f;
     private float coyoteTimeCounter;
     private float currentJumpM;
+    private bool canJump;
     
     [Header("Wall Jump")]
     [SerializeField] private Transform wallCheck;
@@ -617,6 +618,7 @@ public class PlayerController : MonoBehaviour
     void AttackYes()
     {
         canAttack = true;
+        
     }
     void AttackNo()
     {
@@ -626,10 +628,12 @@ public class PlayerController : MonoBehaviour
     void SetMoving()
     {
         isMovingAttack = true;
+        canJump = false;
     }
     void SetStoped()
     {
         isMovingAttack = false;
+        canJump = true;
     }
     private IEnumerator Dash()
     {

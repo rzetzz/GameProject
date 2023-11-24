@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHealthController : MonoBehaviour
 {
 
-    
+    bool isAttack;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,10 +28,21 @@ public class PlayerHealthController : MonoBehaviour
     public void DealDamage()
     {
         PlayerStats.instance.currentHealth -= 2;
+        
         if(PlayerStats.instance.currentHealth < 0)
         {
             Debug.Log("Dead Now");
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "EnemyAttack")
+        {
+            
+            DealDamage();
+        }
+        
+        
     }
 
 }

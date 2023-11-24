@@ -28,8 +28,7 @@ public class BowController : MonoBehaviour
         {
             points[i] = Instantiate(thePoint,transform.position,Quaternion.identity,pointParent);
             points[i].SetActive(false);
-            // Vector3 size = new Vector3(i*0.05f,i*0.05f,i*0.05f);
-            // points[i].transform.localScale += size;
+
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         setAnim = GetComponent<Animator>();
