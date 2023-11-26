@@ -19,7 +19,7 @@ public class SetDisable : MonoBehaviour
    void Lost()
    {
       coll.enabled = false;
-      Debug.Log("mati");
+      
    }
    void Back()
    {

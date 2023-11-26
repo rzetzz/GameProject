@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject attackUp;
     [SerializeField] private GameObject attackDown;
     private bool isAttack;
-    private bool isFinalAttack;
+    public bool isFinalAttack;
     private int attackState = 0;
     [SerializeField]private float attackDistance = 0.5f;
     private float attackDistanceCounter;
@@ -78,6 +78,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float bowAirTime = 1f;
     [SerializeField] Transform bowLocation;
     private float bowAirCounter;
+
+    [Header("KnockBack")]
+    [SerializeField] float knockBackForce = 5;
+    [SerializeField] float knockBackTime = 0.5f;
+    float knockbackDir;
+    bool isKnockBack;
+    
     
     [Header("Other")]
     [SerializeField] private float groundCheckRadius;
@@ -119,7 +126,7 @@ public class PlayerController : MonoBehaviour
             isJumping = false; 
         }
         // Movement
-        if (!isDashing && !isCharging && !isChargeDash && !isMovingAttack && !isBowAttack)
+        if (!isDashing && !isCharging && !isChargeDash && !isMovingAttack && !isBowAttack && !isKnockBack)
         {
 
             playerRb.velocity = new Vector2(moveSpeed * horizontal,playerRb.velocity.y);
@@ -131,7 +138,7 @@ public class PlayerController : MonoBehaviour
         {
             canDoubleJump = false;  
         }
-        if(isGrounded() && !isJumping)
+        if(isGrounded() && !isJumping && !isKnockBack)
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x,0f);
         }
@@ -468,15 +475,7 @@ public class PlayerController : MonoBehaviour
     }
     void Attack()
     {
-        // if(Input.GetButtonDown("Fire1"))
-        // {
-        //     attackState += 1;
-        //     attackBufferCounter = attackBufferTime;
-        // }
-        // else
-        // {
-        //     attackBufferCounter -= Time.deltaTime;
-        // }
+        
         if(PlayerInputSetting.instance.attackClick && canAttack)
         {   
             setAnim.SetTrigger("Attack");
@@ -547,6 +546,35 @@ public class PlayerController : MonoBehaviour
 
         
     }
+    public Transform GetNearestEnemy(){
+        GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        float nearestEnemy = Mathf.Infinity;
+        Transform theEnemy = null;
+
+        foreach(GameObject en in enemy){
+            float current;
+            current = Vector3.Distance(transform.position, en.transform.position);
+            if(current < nearestEnemy){
+                nearestEnemy = current;
+                theEnemy = en.transform;
+            }
+
+        }
+        return theEnemy;
+    }
+    float KnockbackDir(){
+        
+        if(GetNearestEnemy() != null){
+            if (transform.position.x < GetNearestEnemy().transform.position.x){
+                knockbackDir = -1;
+            } else if (transform.position.x > GetNearestEnemy().transform.position.x) {
+                knockbackDir = 1;
+            }
+        } else {
+            knockbackDir = transform.localScale.x;
+        }
+        return knockbackDir;
+    }
     void BowAttack()
     {
         if (PlayerInputSetting.instance.bowAttack && bowAirCounter > 0)
@@ -597,18 +625,22 @@ public class PlayerController : MonoBehaviour
     
     void SetAttack()
     {
+        isFinalAttack = false;
          attack.SetActive(true);
     } 
     void SetFinalAttack()
     {
+        isFinalAttack = true;
         attackFinal.SetActive(true); 
     }
     void SetAttackUp()
     {
+        isFinalAttack = false;
          attackUp.SetActive(true);
     } 
     void SetAttackDown()
     {
+        isFinalAttack = false;
          attackDown.SetActive(true);
     } 
     void SetStateAttack()
@@ -632,9 +664,13 @@ public class PlayerController : MonoBehaviour
     }
     void SetStoped()
     {
+        isFinalAttack = false;
         isMovingAttack = false;
         canJump = true;
     }
+   
+   //IEnumerator
+
     private IEnumerator Dash()
     {
         isAttack = false;
@@ -652,7 +688,17 @@ public class PlayerController : MonoBehaviour
         playerRb.gravityScale = oriGravity;
 
     }
-
+    public IEnumerator KnockBack()
+    {
+        isKnockBack = true;
+        
+        setAnim.SetTrigger("KnockBack");
+        playerRb.velocity = new Vector2(KnockbackDir() * knockBackForce, knockBackForce);
+        yield return new WaitForSeconds(knockBackTime);
+        
+        isKnockBack = false;
+        playerRb.velocity = Vector2.zero;
+    }
     private IEnumerator AttackDistance()
     {
         // isMovingAttack = true;

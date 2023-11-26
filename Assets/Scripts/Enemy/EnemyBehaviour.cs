@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    [SerializeField] private int health = 14;
     [SerializeField] private ParticleSystem hit;
-    
-    [SerializeField] private ParticleSystem hitDown;
-    
-    [SerializeField] private ParticleSystem hitUp;
+    [SerializeField] private ParticleSystem death;
     Transform player;
     Vector3 hitDir;
     public bool isKnockBack;
@@ -16,46 +14,58 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] float knockBackTime = 0.5f;
     Rigidbody2D rb;
     [SerializeField]Collider2D attack;
+    [SerializeField]Material matBlink;
+    Material defaultMat;
+    SpriteRenderer sr;
     Collider2D body;
+    Animator setAnim;
+    PlayerController playerControl;
+    bool hasPlayed;
+    
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         body = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         hitDir = player.transform.localScale;
+        sr = GetComponent<SpriteRenderer>();
+        defaultMat = sr.material;
+        setAnim = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isKnockBack)
-        {
-            StartCoroutine(KnockBack());
-        }
+        // if (isKnockBack)
+        // {
+        //     StartCoroutine(KnockBack());
+        // }
         // hit.transform.localScale = hitDir;
-        Vector3 dir = player.transform.position - transform.position;
-        Debug.Log(dir);
+        if(health <= 0)
+        {   
+            
+            setAnim.SetTrigger("isDead");
+        }
+       
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Attack")
         {
-            hitDir = player.transform.localScale;
-            
-            // if(KnockBackDir().y > 0.5f)
-            // {
-            //     hitDown.Play();
-            // }
-            // else if (KnockBackDir().y < -0.5f)
-            // {
-            //     hitUp.Play();
-            // }
-            // else
-            // {
-            //     hit.Play();
-            // }
-            
+            if(playerControl.isFinalAttack)
+            {
+                health -= PlayerStats.instance.attackFinalDamage;
+            }
+            else
+            {
+                health -= PlayerStats.instance.attackDamage;
+            }
+            hitDir = player.transform.localScale;    
             hit.transform.rotation = getPosition();
+            StartCoroutine(Blink());
+            StartCoroutine(KnockBack());
             hit.Play();
             isKnockBack = true;
         }
@@ -71,6 +81,13 @@ public class EnemyBehaviour : MonoBehaviour
         rb.velocity = Vector2.zero;
         isKnockBack = false;
         
+    }
+
+    IEnumerator Blink()
+    {
+        sr.material = matBlink;
+        yield return new WaitForSeconds(0.1f);
+        sr.material = defaultMat;
     }
     Vector3 KnockBackDir(){
         Vector3 dir = player.transform.position - transform.position;
@@ -93,11 +110,28 @@ public class EnemyBehaviour : MonoBehaviour
     void setAttack()
     {
         attack.enabled = true;
-        body.enabled = false;
+        
     }
     void stopAttack()
     {
         attack.enabled = false;
+    }
+    void setDead()
+    {
+        if(!hasPlayed)
+        {
+            death.Play();
+            hasPlayed = true;
+        }
+        
+        sr.enabled = false;
+        body.enabled = false;
+        rb.velocity = new Vector2(0f,rb.velocity.y);
+        // rb.gravityScale = 0;
+    }
+    void setDisabled()
+    {
+        this.gameObject.SetActive(false);
     }
     void setBody()
     {

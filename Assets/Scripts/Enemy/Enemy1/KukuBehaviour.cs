@@ -42,95 +42,6 @@ public class KukuBehaviour : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    // void Update()
-    
-    // {
-    //     GetPlayerPosition();
-    //     if (waitCounter > 0)
-    //     {
-    //         waitCounter -= Time.deltaTime;
-    //     }
-        
-    //     if(waitCounter <= 0)
-    //     {
-    //         if(GetPlayerPosition())
-    //         {
-    //             FlipTowardsPlayer();
-    //             if(CanAttack()&&!isAttack)
-    //             {
-    //                 attackCounter = attackTime;
-    //                 isAttack = true;
-    //             }
-
-    //             if(!CanAttack())
-    //             {
-    //                 rb.velocity = new Vector2((speed+0.5f)*-transform.localScale.x,rb.velocity.y);
-    //             }
-                
-                
-    //         }
-
-    //         if(!GetPlayerPosition())
-    //         {
-    //             MovingPerPoint();
-    //         }
-
-    //         if(isAttack)
-    //         {
-    //             if(attackCounter > 0)
-    //             {
-    //                 attackCounter -=Time.deltaTime;
-    //                 rb.velocity = new Vector2(attackPower*-transform.localScale.x,0);
-    //             }
-    //             else
-    //             {
-    //                 isAttack = false;
-    //                 waitCounter = waitTime;
-    //                 rb.velocity = Vector2.zero;
-    //             }
-    //         }
-
-    //     }
-        
-    // }
-
-    // private void Update() {
-    //     if(chaseCounter>0)
-    //     {
-    //         Debug.Log("Here");
-    //         chaseCounter-=Time.deltaTime;
-    //     }
-    //     if (isMove)
-    //     {
-    //         MovingPerPoint();
-    //     }
-    //     if(GetPlayerPosition())
-    //     {
-    //         setAnim.SetTrigger("GetPlayer");
-    //     }
-    //     if(CanAttack())
-    //     {
-    //         setAnim.SetTrigger("AttackPlayer");
-    //     }
-    //     if(GetPlayerPosition() && chaseCounter > 0)
-    //     {
-    //         isChase = true;
-    //     }
-    //     else if (!GetPlayerPosition() && chaseCounter <= 0)
-    //     {
-    //         isChase = false;
-    //     }
-    //     if(isChase)
-    //     {
-    //         rb.velocity = new Vector2((speed+1f)*-transform.localScale.x,rb.velocity.y);
-    //     }
-    //     if(isAttack)
-    //     {
-    //         rb.velocity = new Vector2(attackPower*-transform.localScale.x,0);
-    //     }
-    //     setAnim.SetBool("isChasing",isChase);
-    // }
     private void Update() {
         if(chaseCounter>0)
         {
@@ -204,7 +115,7 @@ public class KukuBehaviour : MonoBehaviour
                 }
                 
                 moveDir = -speed;
-                Debug.Log("left");
+                
                 
             } else if(transform.position.x < locPoint[currentPoint].position.x) {
                 if(!isFacingLeft)
@@ -224,11 +135,7 @@ public class KukuBehaviour : MonoBehaviour
         }
         rb.velocity = new Vector2(moveDir,rb.velocity.y);
     }
-    public void KnockBack()
-    {
-        
-        rb.velocity = new Vector2(attackPower*transform.localScale.x,rb.velocity.y);
-    }
+    
     float Distance()
     {
         return Vector3.Distance(transform.position,player.position);
@@ -288,7 +195,14 @@ public class KukuBehaviour : MonoBehaviour
         rb.velocity = Vector2.zero;
     }
     
-    
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Attack")
+        {
+            setAnim.SetTrigger("isKnockBack");
+        }
+        
+        
+    }
     
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position, aggroDistance);
