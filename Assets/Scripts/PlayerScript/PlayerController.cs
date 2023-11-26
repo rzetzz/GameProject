@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
     private float oriGravity;
     Vector2 vecGravity;
     public bool isFacingRight = true;
-    Rigidbody2D playerRb;
+    public Rigidbody2D playerRb;
     PlayerAbilities abilities;
     Animator setAnim;
     public TrailRenderer trail;

@@ -8,7 +8,7 @@ public class KukuMove : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       kuku = GameObject.FindGameObjectWithTag("Enemy").GetComponent<KukuBehaviour>();
+       kuku = animator.gameObject.GetComponent<KukuBehaviour>();
        
     }
 

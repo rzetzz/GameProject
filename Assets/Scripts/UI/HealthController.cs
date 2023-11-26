@@ -11,6 +11,8 @@ public class HealthController : MonoBehaviour
     public Sprite halfHealth;
     public Sprite primaryFull;
     public Sprite primaryHalf;
+
+    [SerializeField] DataSave data;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +24,7 @@ public class HealthController : MonoBehaviour
     {
          for (int i = 0; i < health.Length; i++)
         {
-            if ( i < PlayerStats.instance.maxHealth/2){
+            if ( i < data.maxHealth/2){
                 health[i].enabled = true;
             } else {
                 health[i].enabled = false;
@@ -31,15 +33,15 @@ public class HealthController : MonoBehaviour
 
             if(i != 0)
             {
-                if (i < PlayerStats.instance.currentHealth/2)
+                if (i < data.currentHealth/2)
                 {
                     health[i].sprite = fullHealth; 
                 } 
-                else if (i > (PlayerStats.instance.currentHealth/2)-1 && PlayerStats.instance.currentHealth % 2 != 0 && i < (PlayerStats.instance.currentHealth/2)+1 )
+                else if (i > (data.currentHealth/2)-1 && data.currentHealth % 2 != 0 && i < (data.currentHealth/2)+1 )
                 {
                     health[i].sprite = halfHealth;         
                 } 
-                else if (i > (PlayerStats.instance.currentHealth/2)-2 && PlayerStats.instance.currentHealth % 2 == 0 || PlayerStats.instance.currentHealth == 0)
+                else if (i > (data.currentHealth/2)-2 && data.currentHealth % 2 == 0 || data.currentHealth == 0)
                 {
                     health[i].sprite = emptyHealth;
                     
@@ -47,15 +49,15 @@ public class HealthController : MonoBehaviour
             }
             if(i == 0)
             {
-                if (i < PlayerStats.instance.currentHealth/2)
+                if (i < data.currentHealth/2)
                 {
                     health[i].sprite = primaryFull; 
                 } 
-                else if (i > (PlayerStats.instance.currentHealth/2)-1 && PlayerStats.instance.currentHealth % 2 != 0 && i < (PlayerStats.instance.currentHealth/2)+1 )
+                else if (i > (data.currentHealth/2)-1 && data.currentHealth % 2 != 0 && i < (data.currentHealth/2)+1 )
                 {
                     health[i].sprite = primaryHalf;         
                 } 
-                else if (i > (PlayerStats.instance.currentHealth/2)-2 && PlayerStats.instance.currentHealth % 2 == 0 || PlayerStats.instance.currentHealth == 0)
+                else if (i > (data.currentHealth/2)-2 && data.currentHealth % 2 == 0 || data.currentHealth == 0)
                 {
                     health[i].sprite = emptyHealth;
                     

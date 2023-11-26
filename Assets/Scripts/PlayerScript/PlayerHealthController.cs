@@ -5,17 +5,30 @@ using UnityEngine;
 public class PlayerHealthController : MonoBehaviour
 {
 
+    
     bool isAttack;
+    private static bool hasRun = true;
     [SerializeField]float immuneLength = 0.15f;
     [SerializeField]float blinkTime = 0.15f;
     float immuneCounter;
     float blinkCounter;
     SpriteRenderer sr;
     PlayerController control;
+    [SerializeField] DataSave data;
     // Start is called before the first frame update
+    private void Awake() {
+        
+    }
     void Start()
     {
-        PlayerStats.instance.currentHealth = PlayerStats.instance.maxHealth;
+        if(hasRun)
+        {
+            data.sceneIndex = 0;
+            data.currentHealth = data.maxHealth;
+            hasRun = false;
+        }
+        
+        // PlayerStats.instance.currentHealth = PlayerStats.instance.maxHealth;
         control = GetComponent<PlayerController>();
         sr = GetComponent<SpriteRenderer>();
     }
@@ -23,6 +36,7 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(hasRun);
         if(immuneCounter>0)
         {
             immuneCounter-=Time.deltaTime;
@@ -56,11 +70,11 @@ public class PlayerHealthController : MonoBehaviour
         if(immuneCounter<=0)
         {
     
-            PlayerStats.instance.currentHealth -= 2;
+            data.currentHealth -= 2;
             StartCoroutine(control.KnockBack());
             immuneCounter = immuneLength;
         }
-        if(PlayerStats.instance.currentHealth < 0)
+        if(data.currentHealth < 0)
         {
             Debug.Log("Dead Now");
         }
@@ -70,6 +84,10 @@ public class PlayerHealthController : MonoBehaviour
          sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, .5f);
          yield return new WaitForSeconds(0.5f);
          sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+    }
+
+    private void OnApplicationQuit() {
+        hasRun = true;
     }
 
     
