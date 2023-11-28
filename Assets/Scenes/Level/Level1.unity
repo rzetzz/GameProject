@@ -893,7 +893,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1269105826}
-  - component: {fileID: 1269105825}
+  - component: {fileID: 1269105827}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -901,22 +901,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1269105825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269105824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1443f40a973de1447b1699052c88fe6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 2133999992}
-  spawn: {fileID: 2032302765}
-  spawn2: {fileID: 2032302765}
-  data: {fileID: 11400000, guid: dd8904677608ce9488833bdae4aa227a, type: 2}
 --- !u!4 &1269105826
 Transform:
   m_ObjectHideFlags: 0
@@ -932,6 +916,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269105827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269105824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea98b1d0a2446c1449d14608a0b9db9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 2133999992}
+  spawn: {fileID: 2032302765}
+  spawn2: {fileID: 2032302765}
+  spawn3: {fileID: 0}
+  spawn4: {fileID: 0}
+  data: {fileID: 11400000, guid: dd8904677608ce9488833bdae4aa227a, type: 2}
 --- !u!1 &1342318176
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +946,7 @@ GameObject:
   - component: {fileID: 1342318178}
   m_Layer: 3
   m_Name: Grid
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1290,7 +1292,7 @@ GameObject:
   - component: {fileID: 1893669231}
   m_Layer: 3
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4875,6 +4877,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3182716219169444065, guid: 516232a9c7adc124ebd11720d3554cb0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7423063865681503855, guid: 516232a9c7adc124ebd11720d3554cb0, type: 3}
       propertyPath: m_RootOrder
       value: 11

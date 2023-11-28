@@ -90,7 +90,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    
+    [SerializeField] private float maxDistance = 1;
+    [SerializeField] private Transform enemyCheck;
     
     private float oriGravity;
     Vector2 vecGravity;
@@ -289,6 +290,14 @@ public class PlayerController : MonoBehaviour
         setAnim.SetInteger("AttackState",attackState);
         setAnim.SetBool("isWallSliding",isWallSlide);
         setAnim.SetFloat("Movement",Mathf.Abs(playerRb.velocity.x));
+        // if(GetNearestEnemy() != null){
+        //     enemyCheck.position = GetNearestEnemy().position;
+        // }
+        // else
+        // {
+        //     enemyCheck.position = this.transform.position;
+        // }
+
     }
 
     private void FixedUpdate() {
@@ -546,22 +555,51 @@ public class PlayerController : MonoBehaviour
 
         
     }
-    public Transform GetNearestEnemy(){
-        GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
-        float nearestEnemy = Mathf.Infinity;
-        Transform theEnemy = null;
+    // public Transform GetNearestEnemy(){
+    //     GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
+    //     float nearestEnemy = Mathf.Infinity;
+    //     Transform theEnemy = null;
 
-        foreach(GameObject en in enemy){
-            float current;
-            current = Vector3.Distance(transform.position, en.transform.position);
-            if(current < nearestEnemy){
-                nearestEnemy = current;
-                theEnemy = en.transform;
-            }
+    //     foreach(GameObject en in enemy){
+    //         float current;
+    //         current = Vector3.Distance(transform.position, en.transform.position);
+    //         if(current < nearestEnemy){
+    //             nearestEnemy = current;
+    //             theEnemy = en.transform;
+    //         }
 
+    //     }
+    //     return theEnemy;
+    // }
+    public Transform GetNearestEnemy()
+{
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    float nearestEnemy = Mathf.Infinity;
+    Transform theEnemy = null;
+
+    foreach (GameObject enemy in enemies)
+    {
+        float currentDistance = Vector3.Distance(transform.position, enemy.transform.position);
+
+        // Memeriksa apakah musuh berada dalam jarak maksimum yang diizinkan
+        if (currentDistance < maxDistance && currentDistance < nearestEnemy)
+        {
+            nearestEnemy = currentDistance;
+            theEnemy = enemy.transform;
         }
+    }
+
+    // Memeriksa apakah ada musuh dalam jarak yang diizinkan
+    if (theEnemy != null)
+    {
         return theEnemy;
     }
+    else
+    {
+        // Jika tidak ada musuh dalam jarak yang diizinkan, kembalikan null
+        return null;
+    }
+}
     float KnockbackDir(){
         
         if(GetNearestEnemy() != null){
@@ -571,7 +609,7 @@ public class PlayerController : MonoBehaviour
                 knockbackDir = 1;
             }
         } else {
-            knockbackDir = transform.localScale.x;
+            knockbackDir = -transform.localScale.x;
         }
         return knockbackDir;
     }
@@ -718,6 +756,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
 
         // Menggambar wire sphere (lingkaran) berdasarkan posisi wallCheck dan groundCheckRadius
-        Gizmos.DrawWireSphere(wallCheck.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(transform.position, maxDistance);
     }
+    
 }

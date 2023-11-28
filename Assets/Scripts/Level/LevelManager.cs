@@ -7,12 +7,12 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] int sceneBuildIndex;
     [SerializeField] int scene;
-
+    Animator setTransition;
     [SerializeField]DataSave data;
     // Start is called before the first frame update
     void Start()
     {
-        
+        setTransition = GameObject.FindGameObjectWithTag("Transition").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,7 +25,13 @@ public class LevelManager : MonoBehaviour
         if(other.tag == "Player")
         {
             data.sceneIndex = scene;
-            SceneManager.LoadScene(sceneBuildIndex,LoadSceneMode.Single);
+            StartCoroutine(NextLevel());
         }
+    }
+    IEnumerator NextLevel()
+    {
+        setTransition.SetTrigger("end");
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(sceneBuildIndex,LoadSceneMode.Single);
     }
 }

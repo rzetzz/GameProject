@@ -7,6 +7,8 @@ public class ArrowController : MonoBehaviour
     [SerializeField] Transform shotLoc;
     BowController bow;
     Rigidbody2D rb;
+    bool isMissing;
+    bool isStuck;
     void Start()
     {
         bow = transform.parent.GetComponent<BowController>();
@@ -36,14 +38,30 @@ public class ArrowController : MonoBehaviour
         return Quaternion.AngleAxis(angle ,Vector3.forward);
     }
 
-    IEnumerator back()
+    void Miss()
     {
-        yield return new WaitForSeconds(1);
         transform.SetParent(bow.transform);
         transform.rotation = Quaternion.identity;
         transform.position = bow.transform.position;
+        rb.simulated = true;
         this.gameObject.SetActive(false);
+    }
+    IEnumerator back()
+    {
+        yield return new WaitForSeconds(1);
+        Miss();
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.tag == "Ground" || other.tag =="Enemy")
+        {
+            isMissing = true;
+            bow.launchArrow = false;
+            rb.velocity = Vector2.zero;
+            rb.simulated = false;
+            // Miss();
+        }
     }
 
     

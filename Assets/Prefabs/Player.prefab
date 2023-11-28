@@ -679,6 +679,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  maxDistance: 5
+  enemyCheck: {fileID: 0}
   isFacingRight: 1
   playerRb: {fileID: 0}
   trail: {fileID: 1278794812369136396}
@@ -1692,14 +1694,6 @@ PrefabInstance:
     - target: {fileID: 6535710983586197040, guid: 9d788d9097d96d24e877b0c6e952298a, type: 3}
       propertyPath: m_Name
       value: ArrowAttack
-      objectReference: {fileID: 0}
-    - target: {fileID: 6535710983586197040, guid: 9d788d9097d96d24e877b0c6e952298a, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6535710983586197040, guid: 9d788d9097d96d24e877b0c6e952298a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d788d9097d96d24e877b0c6e952298a, type: 3}

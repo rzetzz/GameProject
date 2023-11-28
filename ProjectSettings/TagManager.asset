@@ -9,6 +9,9 @@ TagManager:
   - Attack
   - EnemyAttack
   - PlayerHitbox
+  - Transition
+  - AttackArrow
+  - Ground
   layers:
   - Default
   - TransparentFX

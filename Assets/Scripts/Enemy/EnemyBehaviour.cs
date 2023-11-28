@@ -52,16 +52,23 @@ public class EnemyBehaviour : MonoBehaviour
        
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Attack")
+        if (other.tag == "Attack" || other.tag == "AttackArrow")
         {
-            if(playerControl.isFinalAttack)
+            if(other.tag == "Attack")
             {
-                health -= PlayerStats.instance.attackFinalDamage;
+                if(playerControl.isFinalAttack)
+                {
+                    health -= PlayerStats.instance.attackFinalDamage;
+                }
+                else
+                {
+                    health -= PlayerStats.instance.attackDamage;
+                }
             }
-            else
+            else if(other.tag == "AttackArrow") 
             {
-                health -= PlayerStats.instance.attackDamage;
-            }
+                health -= PlayerStats.instance.attackDamage-1;
+            }   
             hitDir = player.transform.localScale;    
             hit.transform.rotation = getPosition();
             StartCoroutine(Blink());
