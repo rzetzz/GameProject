@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneBuildIndex: 1
-  scene: 1
+  spawnLoc: 1
   data: {fileID: 11400000, guid: dd8904677608ce9488833bdae4aa227a, type: 2}
 --- !u!1 &1524807848
 GameObject:

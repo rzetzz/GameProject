@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float maxDistance = 1;
     [SerializeField] private Transform enemyCheck;
-    
+    [SerializeField] DataSave dataObject;
     private float oriGravity;
     Vector2 vecGravity;
     public bool isFacingRight = true;
@@ -113,6 +113,11 @@ public class PlayerController : MonoBehaviour
         vecGravity = new Vector2(0,-Physics2D.gravity.y);
         oriGravity = playerRb.gravityScale;
         bowAirCounter = bowAirTime;
+        isFacingRight = dataObject.playerFaceRight;
+        if(!isFacingRight)
+        {
+            transform.localScale = new Vector3(-1,1,1);
+        }
        
     }
 
@@ -121,7 +126,7 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = MoveInput();
        
-
+        dataObject.playerFaceRight = isFacingRight;
         if (isDashing)
         {
             isJumping = false; 

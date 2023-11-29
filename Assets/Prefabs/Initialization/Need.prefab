@@ -514,7 +514,7 @@ MonoBehaviour:
   halfHealth: {fileID: 1600857611, guid: 49a0ada8454c1574788661c93bd23a49, type: 3}
   primaryFull: {fileID: 876519367, guid: 49a0ada8454c1574788661c93bd23a49, type: 3}
   primaryHalf: {fileID: -1552086151, guid: 49a0ada8454c1574788661c93bd23a49, type: 3}
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: dd8904677608ce9488833bdae4aa227a, type: 2}
 --- !u!1 &291757423415344134
 GameObject:
   m_ObjectHideFlags: 0

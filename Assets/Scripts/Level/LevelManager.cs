@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] int sceneBuildIndex;
-    [SerializeField] int scene;
+    [SerializeField] int spawnLoc;
     Animator setTransition;
     [SerializeField]DataSave data;
     // Start is called before the first frame update
@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "Player")
         {
-            data.sceneIndex = scene;
+            data.sceneIndex = spawnLoc;
             StartCoroutine(NextLevel());
         }
     }

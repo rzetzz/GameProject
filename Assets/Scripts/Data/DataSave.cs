@@ -10,5 +10,6 @@ public class DataSave : ScriptableObject
     public float maxHealth;
     public float currentHealth;
     public int sceneIndex;
+    public bool playerFaceRight;
 }
 
