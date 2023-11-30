@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: DataSave
   m_EditorClassIdentifier: 
   maxHealth: 22
-  currentHealth: 22
+  currentHealth: 20
   sceneIndex: 0
+  playerFaceRight: 1
+  canDoubleJump: 0
+  canDash: 0
+  canWallJump: 0
+  canChargeDash: 0
+  canAttackBow: 0

@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
     Vector2 vecGravity;
     public bool isFacingRight = true;
     public Rigidbody2D playerRb;
-    PlayerAbilities abilities;
+    
     Animator setAnim;
     public TrailRenderer trail;
     float flipCooldown = 0.03f;
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        abilities = GetComponent<PlayerAbilities>();
+        
         playerRb = GetComponent<Rigidbody2D>();
         setAnim = GetComponent<Animator>();
         vecGravity = new Vector2(0,-Physics2D.gravity.y);
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
 
         if (jumpBufferCounter > 0 && !isDashing)
         {
-            if (coyoteTimeCounter > 0 || (canDoubleJump && abilities.canDoubleJump))
+            if (coyoteTimeCounter > 0 || (canDoubleJump && dataObject.canDoubleJump))
             {
                 
                 jumpTemp -= 1;
@@ -236,7 +236,7 @@ public class PlayerController : MonoBehaviour
         
 
         //Dash
-        if (PlayerInputSetting.instance.dashClick && (canDash && abilities.canDash) && !isMovingAttack)
+        if (PlayerInputSetting.instance.dashClick && (canDash && dataObject.canDash) && !isMovingAttack)
         {
             setAnim.SetTrigger("isDashing");
             StartCoroutine(Dash());
@@ -252,16 +252,16 @@ public class PlayerController : MonoBehaviour
             Flip();
             
         }
-        if(abilities.canWallJump)
+        if(dataObject.canWallJump)
         {
             WallSlide();
             WallJump();
         }
-        if(abilities.canChargeDash)
+        if(dataObject.canChargeDash)
         {
             ChargeDash();
         } 
-        if(abilities.canAttackBow)
+        if(dataObject.canAttackBow)
         {
             BowAttack();
         }
