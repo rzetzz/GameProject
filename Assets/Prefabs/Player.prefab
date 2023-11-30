@@ -648,6 +648,7 @@ MonoBehaviour:
   fallMultiplier: 1
   jumpMultiplier: 5
   jumpTime: 0.4
+  maxFallSpeed: -13
   wallCheck: {fileID: 1278794812216921686}
   wallLayer:
     serializedVersion: 2

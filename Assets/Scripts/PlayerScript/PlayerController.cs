@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallMultiplier;
     [SerializeField] private float jumpMultiplier = 2;
     [SerializeField] private float jumpTime;
+    [SerializeField] private float maxFallSpeed = -7f;
     private float jumpTemp = 1f;
     private float jumpCounter;
     private bool isJumping;
@@ -161,6 +162,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Mathf.Clamp(playerRb.velocity.y, maxFallSpeed, float.MaxValue));
             coyoteTimeCounter -= Time.deltaTime;
         }
 
@@ -397,7 +399,7 @@ public class PlayerController : MonoBehaviour
                 trail.emitting = false;
             }
             
-            if(isChargeDash && (horizontal == -chargeDir || isWalled()))
+            if(isChargeDash && (horizontal == -chargeDir || isWalled() || isKnockBack))
             {
                 
                 isChargeDash = false;
