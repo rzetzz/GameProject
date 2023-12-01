@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9921b7e8bb33ef34db703cb248d11290, type: 3}
   m_Name: DataSave
   m_EditorClassIdentifier: 
-  maxHealth: 22
-  currentHealth: 20
-  sceneIndex: 0
+  maxHealth: 10
+  currentHealth: -6
+  sceneIndex: 1
   playerFaceRight: 1
   canDoubleJump: 0
-  canDash: 0
+  canDash: 1
   canWallJump: 0
   canChargeDash: 0
   canAttackBow: 0

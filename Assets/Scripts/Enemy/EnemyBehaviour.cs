@@ -133,8 +133,9 @@ public class EnemyBehaviour : MonoBehaviour
         
         sr.enabled = false;
         body.enabled = false;
-        rb.velocity = new Vector2(0f,rb.velocity.y);
-        // rb.gravityScale = 0;
+        rb.gravityScale = 0;
+        rb.velocity = new Vector2(0f,0f);
+        
     }
     void setDisabled()
     {

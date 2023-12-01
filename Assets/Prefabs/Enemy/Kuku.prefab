@@ -169,6 +169,7 @@ MonoBehaviour:
   attackTime: 0.15
   waitTime: 2
   ChaseTime: 3
+  jumpHeight: 16.5
   locPoint:
   - {fileID: 1294371796337775757}
   - {fileID: 1294371794797650724}
@@ -185,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e99ef7030742db4c9a9858b59307d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 14
+  health: 18
   hit: {fileID: 5359093759300517980}
   death: {fileID: 5359093757878515263}
   isKnockBack: 0
@@ -817,7 +818,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8439377153564538601, guid: 41986d770f4b9b647902ecaadb3b5bbe, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439377153564538601, guid: 41986d770f4b9b647902ecaadb3b5bbe, type: 3}
       propertyPath: emitterVelocityMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439377153564538601, guid: 41986d770f4b9b647902ecaadb3b5bbe, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8439377153564538601, guid: 41986d770f4b9b647902ecaadb3b5bbe, type: 3}

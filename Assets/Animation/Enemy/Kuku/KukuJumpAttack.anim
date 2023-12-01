@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KukuGetPlayer
+  m_Name: KukuJumpAttack
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,15 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -965146271, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - time: 0.25
-      value: {fileID: 386197759, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - time: 0.41666666
-      value: {fileID: 1214082629, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - time: 0.5833333
-      value: {fileID: -965146271, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - time: 0.6666667
-      value: {fileID: -965146271, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
+      value: {fileID: -371759278, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
+    - time: 0.9166667
+      value: {fileID: -371759278, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,17 +42,14 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -965146271, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - {fileID: 386197759, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - {fileID: 1214082629, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - {fileID: -965146271, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
-    - {fileID: -965146271, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
+    - {fileID: -371759278, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
+    - {fileID: -371759278, guid: 0ca980841d701754c9acce29293a35a0, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.68333334
+    m_StopTime: 0.93333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -79,28 +70,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: StopMove
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.33333334
-    functionName: FlipTowardsPlayer
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.5833333
-    functionName: RandomState
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.6666667
-    functionName: StopMove
+    functionName: JumpToPlayer
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -12,6 +12,7 @@ public class KukuBehaviour : MonoBehaviour
     [SerializeField]private float attackTime = 2;
     [SerializeField]private float waitTime = 2;
     [SerializeField]private float ChaseTime = 2;
+    [SerializeField]private float jumpHeight = 5;
     [SerializeField] Transform[] locPoint;
     private int currentPoint;
     private float attackCounter;
@@ -104,6 +105,26 @@ public class KukuBehaviour : MonoBehaviour
             rb.velocity = new Vector2(attackPower*-transform.localScale.x,rb.velocity.y);
         }
         
+    }
+    public void RandomState()
+    {
+        int rand = Random.Range(1,3);
+        // rand = 2;
+        switch (rand)
+        {
+            case 1 :
+                setAnim.SetTrigger("AttackChase");
+                break;
+            case 2 :
+                setAnim.SetTrigger("JumpAttack");
+                break;
+            
+        }
+    }
+    public void JumpToPlayer()
+    {
+        float playerDir = (player.position.x) - transform.position.x;
+        rb.velocity = new Vector2(playerDir + (-transform.localScale.x), jumpHeight);
     }
     public void MovingPerPoint()
     {
