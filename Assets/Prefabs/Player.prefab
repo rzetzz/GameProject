@@ -351,8 +351,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.049995422, y: -0.013071537}
-  m_Size: {x: 0.7044525, y: 0.76557827}
+  m_Offset: {x: -0.069000244, y: -0.03643608}
+  m_Size: {x: 0.6664429, y: 0.7188492}
   m_Direction: 0
 --- !u!1 &2021448652
 GameObject:
@@ -682,6 +682,7 @@ MonoBehaviour:
     m_Bits: 8
   maxDistance: 5
   enemyCheck: {fileID: 0}
+  hitbox: {fileID: 1950474514}
   dataObject: {fileID: 11400000, guid: dd8904677608ce9488833bdae4aa227a, type: 2}
   isFacingRight: 1
   playerRb: {fileID: 0}

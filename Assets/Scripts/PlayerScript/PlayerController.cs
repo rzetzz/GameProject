@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float maxDistance = 1;
     [SerializeField] private Transform enemyCheck;
+    [SerializeField] Collider2D hitbox;
     [SerializeField] DataSave dataObject;
     private float oriGravity;
     Vector2 vecGravity;
@@ -723,11 +724,13 @@ public class PlayerController : MonoBehaviour
         trail.emitting =true;
         canDash = false;
         isDashing = true;   
+        hitbox.enabled = false;
         playerRb.gravityScale = 0f;
         playerRb.velocity = new Vector2(transform.localScale.x * dashPower,0f);
 
         yield return new WaitForSeconds(dashTime);
         
+        hitbox.enabled = true;
         trail.emitting =false;
         isDashing = false;
         playerRb.gravityScale = oriGravity;

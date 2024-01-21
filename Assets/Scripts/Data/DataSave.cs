@@ -12,5 +12,6 @@ public class DataSave : ScriptableObject
     public int sceneIndex;
     public bool playerFaceRight;
     public bool canDoubleJump,canDash,canWallJump,canChargeDash,canAttackBow;
+    public bool event1;
 }
 

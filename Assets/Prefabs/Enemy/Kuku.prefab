@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e99ef7030742db4c9a9858b59307d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 18
+  health: 12
   hit: {fileID: 5359093759300517980}
   death: {fileID: 5359093757878515263}
   isKnockBack: 0
@@ -194,6 +194,7 @@ MonoBehaviour:
   knockBackTime: 0.1
   attack: {fileID: 1294371796276045097}
   matBlink: {fileID: 2100000, guid: 31cb4ffd6648daa4d917457ddef30834, type: 2}
+  isDead: 0
 --- !u!114 &1294371794821680674
 MonoBehaviour:
   m_ObjectHideFlags: 0

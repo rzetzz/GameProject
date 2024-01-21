@@ -21,6 +21,7 @@ public class EnemyBehaviour : MonoBehaviour
     Animator setAnim;
     PlayerController playerControl;
     bool hasPlayed;
+    public bool isDead = false;
     
     // Start is called before the first frame update
     void Start()
@@ -130,7 +131,7 @@ public class EnemyBehaviour : MonoBehaviour
             death.Play();
             hasPlayed = true;
         }
-        
+        isDead = true;
         sr.enabled = false;
         body.enabled = false;
         rb.gravityScale = 0;

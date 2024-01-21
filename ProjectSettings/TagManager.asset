@@ -12,6 +12,7 @@ TagManager:
   - Transition
   - AttackArrow
   - Ground
+  - Event1
   layers:
   - Default
   - TransparentFX
