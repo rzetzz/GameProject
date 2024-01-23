@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     Vector2 vecGravity;
     public bool isFacingRight = true;
     public Rigidbody2D playerRb;
-    
+    public bool isRest;
     Animator setAnim;
     public TrailRenderer trail;
     float flipCooldown = 0.03f;
@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         horizontal = MoveInput();
        
         dataObject.playerFaceRight = isFacingRight;
@@ -134,10 +135,15 @@ public class PlayerController : MonoBehaviour
             isJumping = false; 
         }
         // Movement
-        if (!isDashing && !isCharging && !isChargeDash && !isMovingAttack && !isBowAttack && !isKnockBack)
+        if (!isDashing && !isCharging && !isChargeDash && !isMovingAttack && !isBowAttack && !isKnockBack && !isRest)
         {
 
             playerRb.velocity = new Vector2(moveSpeed * horizontal,playerRb.velocity.y);
+        }
+        
+        if (dataObject.playerDead)
+        {
+            playerRb.simulated = false;
         }
         
         
@@ -305,6 +311,14 @@ public class PlayerController : MonoBehaviour
         // {
         //     enemyCheck.position = this.transform.position;
         // }
+        if (isRest)
+        {
+            playerRb.velocity = new Vector2(0,playerRb.velocity.y);
+            canDash = false;
+            canAttack = false;
+            canChargeDash = false;
+            canJump = false;
+        }
 
     }
 

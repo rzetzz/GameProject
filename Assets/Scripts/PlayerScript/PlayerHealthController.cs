@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthController : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(hasRun);
+       
         if(immuneCounter>0)
         {
             immuneCounter-=Time.deltaTime;
@@ -56,13 +57,19 @@ public class PlayerHealthController : MonoBehaviour
         {
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
         }
+
+        if(data.currentHealth <= 0)
+        {
+            data.playerDead = true;
+            StartCoroutine(ReloadLevel());
+        }
     }
     public void DealHalfDamage()
     {
         PlayerStats.instance.currentHealth--;
         if(PlayerStats.instance.currentHealth < 0)
         {
-            Debug.Log("Dead Now");
+            
         }
     }
     public void DealDamage()
@@ -74,10 +81,7 @@ public class PlayerHealthController : MonoBehaviour
             StartCoroutine(control.KnockBack());
             immuneCounter = immuneLength;
         }
-        if(data.currentHealth < 0)
-        {
-            Debug.Log("Dead Now");
-        }
+        
     }
     IEnumerator Blinking()
     {
@@ -90,6 +94,12 @@ public class PlayerHealthController : MonoBehaviour
         hasRun = true;
     }
 
+    IEnumerator ReloadLevel()
+    {
+        Debug.Log("Dead Now");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(data.checkpointSceneIndex,LoadSceneMode.Single);
+    }
     
 
 }

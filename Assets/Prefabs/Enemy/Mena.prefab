@@ -284,13 +284,13 @@ MonoBehaviour:
   maxBounds: {fileID: 4114518447328299799}
   minBounds: {fileID: 4114518446897349634}
   moveSpeed: 2
-  attackSpeed: 20
+  attackSpeed: 15
   aggroDistance: 7.5
   aggroAttackDistance: 5.5
   ChaseTime: 2
   waitTime: 1
   bulletTime: 2
-  bulletSpeed: 15
+  bulletSpeed: 10
   bullet: {fileID: 4114518445753468037}
   bulletLocation: {fileID: 4114518446933159551}
 --- !u!95 &4114518445802527268

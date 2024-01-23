@@ -12,6 +12,7 @@ public class LevelInit : MonoBehaviour
     [SerializeField] Transform spawn3;
     [SerializeField] Transform spawn4;
     [SerializeField] DataSave data;
+    [SerializeField] Transform[] checkpoint;
     Transform player;
     bool hasSpawn;
     // Start is called before the first frame update
@@ -21,21 +22,33 @@ public class LevelInit : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        if(data.sceneIndex == 1)
+        if(!data.playerDead)
         {
-            player.position = spawn.position;
+            if(data.sceneIndex == 1)
+            {
+                player.position = spawn.position;
+            }
+            else if(data.sceneIndex == 2)
+            {
+                player.position = spawn2.position;
+            }
+            else if(data.sceneIndex == 3)
+            {
+                player.position = spawn3.position;
+            }
+            else if(data.sceneIndex == 4)
+            {
+                player.position = spawn4.position;
+            }
         }
-        else if(data.sceneIndex == 2)
+        else
         {
-            player.position = spawn2.position;
-        }
-        else if(data.sceneIndex == 3)
-        {
-            player.position = spawn3.position;
-        }
-        else if(data.sceneIndex == 4)
-        {
-            player.position = spawn4.position;
+            data.currentHealth = data.maxHealth;
+            data.playerDead = false;
+            if (data.checkpointId == 1)
+            {
+                player.position = checkpoint[0].position;
+            }
         }
         cam.Follow = player;
         
