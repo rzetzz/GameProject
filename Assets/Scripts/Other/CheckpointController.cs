@@ -24,6 +24,7 @@ public class CheckpointController : MonoBehaviour
         {
             if(control.isRest)
             {
+                control.transform.position = new Vector3(transform.position.x,control.transform.position.y,0f);
                 sign.SetActive(false);
             }
             else
@@ -31,14 +32,15 @@ public class CheckpointController : MonoBehaviour
                 sign.SetActive(true);
             }
             
-            if (PlayerInputSetting.instance.jumpClick && !control.isRest)
+            if (PlayerInputSetting.instance.interact && !control.isRest)
             {
+                
                 data.currentHealth = data.maxHealth;
                 control.isRest = true;
                 data.checkpointId = checkId;
                 data.checkpointSceneIndex = SceneManager.GetActiveScene().buildIndex;
                 Debug.Log("rest");
-            } else if(PlayerInputSetting.instance.jumpClick && control.isRest)
+            } else if(PlayerInputSetting.instance.interact && control.isRest)
             {
                 control.isRest = false;
             }

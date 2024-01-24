@@ -22,13 +22,15 @@ public class PlayerInputSetting : MonoBehaviour
     public bool attackRelease;
     public bool bowAttack;
     public bool bowRelease;
+    public bool pause;
+    public bool interact;
     int count;
     PlayerInput playerInput;
     Vector3 mousePos;
     Vector3 mouseAim;
     Vector3 theMouse;
     public Transform lightning;
-
+    
     void Jump(bool cond){
         jump = cond;
        
@@ -58,8 +60,11 @@ public class PlayerInputSetting : MonoBehaviour
         mouseAim = new Vector2(theMouse.x - mousePos.x, theMouse.y - mousePos.y);
         mouseAim.Normalize();
         var jumper = playerInput.actions["Jump"];
+        
+        
         jumpClick = jumper.WasPerformedThisFrame();
         jumpRelease = jumper.WasReleasedThisFrame();
+        
 
         var attack = playerInput.actions["Attack"];
         attackClick = attack.WasPerformedThisFrame();
@@ -74,6 +79,11 @@ public class PlayerInputSetting : MonoBehaviour
 
         var bow = playerInput.actions["BowAttack"];
         bowRelease = bow.WasReleasedThisFrame();
+        
+        var stop = playerInput.actions["Pause"];
+        pause = stop.WasPerformedThisFrame();
+
+        interact = playerInput.actions["Interact"].WasPerformedThisFrame();
         
         if(playerInput.currentControlScheme.Equals("Keyboard&Mouse")){
             

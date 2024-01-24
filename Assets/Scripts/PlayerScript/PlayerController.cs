@@ -127,198 +127,205 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
-        horizontal = MoveInput();
-       
-        dataObject.playerFaceRight = isFacingRight;
-        if (isDashing)
-        {
-            isJumping = false; 
-        }
-        // Movement
-        if (!isDashing && !isCharging && !isChargeDash && !isMovingAttack && !isBowAttack && !isKnockBack && !isRest)
-        {
-
-            playerRb.velocity = new Vector2(moveSpeed * horizontal,playerRb.velocity.y);
-        }
+       if (!dataObject.gamePaused)
+       {
+         horizontal = MoveInput();
         
-        if (dataObject.playerDead)
-        {
-            playerRb.simulated = false;
-        }
-        
-        
-        //Jump
-        if (isGrounded() && !PlayerInputSetting.instance.jumpClick)
-        {
-            canDoubleJump = false;  
-        }
-        if(isGrounded() && !isJumping && !isKnockBack)
-        {
-            playerRb.velocity = new Vector2(playerRb.velocity.x,0f);
-        }
-        
-        if (isGrounded())
-        {
-            
-            isWallJump = false;
-            canDash = true;
-            coyoteTimeCounter = coyoteTime;
-            jumpTemp = 1f;
-            flipCooldownCounter = 0;
-            
-        }
-        else
-        {
-            playerRb.velocity = new Vector2(playerRb.velocity.x, Mathf.Clamp(playerRb.velocity.y, maxFallSpeed, float.MaxValue));
-            coyoteTimeCounter -= Time.deltaTime;
-        }
-
-        if(PlayerInputSetting.instance.jumpClick)
-        {
-            chainAttackCounter = 0;
-            jumpBufferCounter = jumpBufferTime;
-        }
-        else
-        {
-            jumpBufferCounter -= Time.deltaTime;
-        }
-        
-        if(isWallSlide)
-        {
-            canDoubleJump = false;
-            canDash = true;
-        }
-        if(!isGrounded() && jumpTemp > 0 && !isWallSlide && coyoteTimeCounter <= 0)
-        {
-            canDoubleJump = true;
-        }
-
-        if (jumpBufferCounter > 0 && !isDashing)
-        {
-            if (coyoteTimeCounter > 0 || (canDoubleJump && dataObject.canDoubleJump))
-            {
-                
-                jumpTemp -= 1;
-                canDoubleJump = !canDoubleJump; 
-                playerRb.velocity = new Vector2(playerRb.velocity.x,jumpForce);
-                isJumping = true;
-                jumpCounter = 0;
-                jumpBufferCounter = 0f;
-            }  
-        }
-        
-        if(playerRb.velocity.y > 0 && isJumping)
-        {
-            jumpCounter += Time.deltaTime;
-            if (jumpCounter > jumpTime)
-            {
-                isJumping = false;
-            }
-
-            float t = jumpCounter / jumpTime;
-            currentJumpM = jumpMultiplier;
-
-            if (t > 0.5f)
-            {
-                currentJumpM = jumpMultiplier * (1-t);
-            }
-            
-        }
-        if (PlayerInputSetting.instance.jumpRelease)
-        {
-            isJumping = false;
-            jumpCounter = 0;
-            coyoteTimeCounter = 0;
-
-            if(playerRb.velocity.y > 0)
-            {
-                playerRb.velocity = new Vector2(playerRb.velocity.x, playerRb.velocity.y * 0.5f);
-            }
-        }
-        if(playerRb.velocity.y < 0)
-        {
-            playerRb.velocity -= vecGravity * fallMultiplier * Time.deltaTime;
-        }
-
-        
-
-        //Dash
-        if (PlayerInputSetting.instance.dashClick && (canDash && dataObject.canDash) && !isMovingAttack)
-        {
-            setAnim.SetTrigger("isDashing");
-            StartCoroutine(Dash());
-            
-        }
-        //Flip
-        if (horizontal < 0 && isFacingRight && flipCooldownCounter <= 0 && !isMovingAttack )
-        {
-            Flip();
-        }
-        else if (horizontal > 0 && !isFacingRight && flipCooldownCounter <= 0 && !isMovingAttack )
-        {
-            Flip();
-            
-        }
-        if(dataObject.canWallJump)
-        {
-            WallSlide();
-            WallJump();
-        }
-        if(dataObject.canChargeDash)
-        {
-            ChargeDash();
-        } 
-        if(dataObject.canAttackBow)
-        {
-            BowAttack();
-        }
-        
-        if(playerRb.velocity.y > 0)
-        {
-            setAnim.SetBool("isJumping",true);
-            setAnim.SetBool("isFalling",false);
-            setAnim.SetBool("isLanding",false);
-        }
-        else
-        {
-            setAnim.SetBool("isJumping",false);
-        }
-        if(playerRb.velocity.y < 0)
-        {
-            setAnim.SetBool("isJumping",false);
-            setAnim.SetBool("isFalling",true);
-            setAnim.SetBool("isLanding",false);
-            
-            
-        }
-        
-        if(playerRb.velocity.y == 0 && isGrounded())
-        {
-            setAnim.SetBool("isFalling",false);
-            setAnim.SetBool("isLanding",true);
-        }
-        
-        Attack();
-        
-        setAnim.SetBool("isGrounded",isGrounded());
-        setAnim.SetInteger("AttackState",attackState);
-        setAnim.SetBool("isWallSliding",isWallSlide);
-        setAnim.SetFloat("Movement",Mathf.Abs(playerRb.velocity.x));
-        // if(GetNearestEnemy() != null){
-        //     enemyCheck.position = GetNearestEnemy().position;
-        // }
-        // else
-        // {
-        //     enemyCheck.position = this.transform.position;
-        // }
-        if (isRest)
-        {
-            playerRb.velocity = new Vector2(0,playerRb.velocity.y);
-            canDash = false;
-            canAttack = false;
-            canChargeDash = false;
-            canJump = false;
-        }
+         dataObject.playerFaceRight = isFacingRight;
+         if (isDashing)
+         {
+             isJumping = false; 
+         }
+         // Movement
+         if (!isDashing && !isCharging && !isChargeDash && !isMovingAttack && !isBowAttack && !isKnockBack && !isRest)
+         {
+ 
+             playerRb.velocity = new Vector2(moveSpeed * horizontal,playerRb.velocity.y);
+         }
+         
+         if (dataObject.playerDead)
+         {
+             playerRb.simulated = false;
+         }
+         
+         
+         //Jump
+         if (isGrounded() && !PlayerInputSetting.instance.jumpClick)
+         {
+             canDoubleJump = false;  
+         }
+         if(isGrounded() && !isJumping && !isKnockBack)
+         {
+             playerRb.velocity = new Vector2(playerRb.velocity.x,0f);
+         }
+         
+         if (isGrounded())
+         {
+             
+             isWallJump = false;
+             canDash = true;
+             coyoteTimeCounter = coyoteTime;
+             jumpTemp = 1f;
+             flipCooldownCounter = 0;
+             
+         }
+         else
+         {
+             playerRb.velocity = new Vector2(playerRb.velocity.x, Mathf.Clamp(playerRb.velocity.y, maxFallSpeed, float.MaxValue));
+             coyoteTimeCounter -= Time.deltaTime;
+         }
+ 
+         if(PlayerInputSetting.instance.jumpClick && canJump)
+         {
+             chainAttackCounter = 0;
+             jumpBufferCounter = jumpBufferTime;
+         }
+         else
+         {
+             jumpBufferCounter -= Time.deltaTime;
+         }
+         
+         if(isWallSlide)
+         {
+             canDoubleJump = false;
+             canDash = true;
+         }
+         if(!isGrounded() && jumpTemp > 0 && !isWallSlide && coyoteTimeCounter <= 0)
+         {
+             canDoubleJump = true;
+         }
+ 
+         if (jumpBufferCounter > 0 && !isDashing)
+         {
+             if (coyoteTimeCounter > 0 || (canDoubleJump && dataObject.canDoubleJump))
+             {
+                 
+                 jumpTemp -= 1;
+                 canDoubleJump = !canDoubleJump; 
+                 playerRb.velocity = new Vector2(playerRb.velocity.x,jumpForce);
+                 isJumping = true;
+                 jumpCounter = 0;
+                 jumpBufferCounter = 0f;
+             }  
+         }
+         
+         if(playerRb.velocity.y > 0 && isJumping)
+         {
+             jumpCounter += Time.deltaTime;
+             if (jumpCounter > jumpTime)
+             {
+                 isJumping = false;
+             }
+ 
+             float t = jumpCounter / jumpTime;
+             currentJumpM = jumpMultiplier;
+ 
+             if (t > 0.5f)
+             {
+                 currentJumpM = jumpMultiplier * (1-t);
+             }
+             
+         }
+         if (PlayerInputSetting.instance.jumpRelease)
+         {
+             isJumping = false;
+             jumpCounter = 0;
+             coyoteTimeCounter = 0;
+ 
+             if(playerRb.velocity.y > 0)
+             {
+                 playerRb.velocity = new Vector2(playerRb.velocity.x, playerRb.velocity.y * 0.5f);
+             }
+         }
+         if(playerRb.velocity.y < 0)
+         {
+             playerRb.velocity -= vecGravity * fallMultiplier * Time.deltaTime;
+         }
+ 
+         
+ 
+         //Dash
+         if (PlayerInputSetting.instance.dashClick && (canDash && dataObject.canDash) && !isMovingAttack)
+         {
+             setAnim.SetTrigger("isDashing");
+             StartCoroutine(Dash());
+             
+         }
+         //Flip
+         if (horizontal < 0 && isFacingRight && flipCooldownCounter <= 0 && !isMovingAttack )
+         {
+             Flip();
+         }
+         else if (horizontal > 0 && !isFacingRight && flipCooldownCounter <= 0 && !isMovingAttack )
+         {
+             Flip();
+             
+         }
+         if(dataObject.canWallJump)
+         {
+             WallSlide();
+             WallJump();
+         }
+         if(dataObject.canChargeDash)
+         {
+             ChargeDash();
+         } 
+         if(dataObject.canAttackBow)
+         {
+             BowAttack();
+         }
+         
+         if(playerRb.velocity.y > 0)
+         {
+             setAnim.SetBool("isJumping",true);
+             setAnim.SetBool("isFalling",false);
+             setAnim.SetBool("isLanding",false);
+         }
+         else
+         {
+             setAnim.SetBool("isJumping",false);
+         }
+         if(playerRb.velocity.y < 0)
+         {
+             setAnim.SetBool("isJumping",false);
+             setAnim.SetBool("isFalling",true);
+             setAnim.SetBool("isLanding",false);
+             
+             
+         }
+         
+         if(playerRb.velocity.y == 0 && isGrounded())
+         {
+             setAnim.SetBool("isFalling",false);
+             setAnim.SetBool("isLanding",true);
+         }
+         
+         Attack();
+         
+         setAnim.SetBool("isGrounded",isGrounded());
+         setAnim.SetInteger("AttackState",attackState);
+         setAnim.SetBool("isWallSliding",isWallSlide);
+         setAnim.SetFloat("Movement",Mathf.Abs(playerRb.velocity.x));
+         // if(GetNearestEnemy() != null){
+         //     enemyCheck.position = GetNearestEnemy().position;
+         // }
+         // else
+         // {
+         //     enemyCheck.position = this.transform.position;
+         // }
+         if (isRest)
+         {
+             playerRb.velocity = new Vector2(0,playerRb.velocity.y);
+             canDash = false;
+             canAttack = false;
+             canChargeDash = false;
+             canJump = false;
+         }
+         else
+         {
+            canJump = true;
+         }
+       }
 
     }
 

@@ -96,7 +96,10 @@ public class KukuBehaviour : MonoBehaviour
     }
     public void Chasing()
     {
-        rb.velocity = new Vector2((speed+1f)*-transform.localScale.x,rb.velocity.y);
+        if(!enemy.isKnockBack)
+        {
+            rb.velocity = new Vector2((speed+1f)*-transform.localScale.x,rb.velocity.y);
+        }
     }
     public void Attacking()
     {
@@ -124,7 +127,10 @@ public class KukuBehaviour : MonoBehaviour
     public void JumpToPlayer()
     {
         float playerDir = (player.position.x) - transform.position.x;
-        rb.velocity = new Vector2(playerDir + (-transform.localScale.x), jumpHeight);
+        if(!enemy.isKnockBack)
+        {
+            rb.velocity = new Vector2(playerDir + (-transform.localScale.x), jumpHeight);
+        }
     }
     public void MovingPerPoint()
     {
@@ -215,15 +221,7 @@ public class KukuBehaviour : MonoBehaviour
         
         rb.velocity = Vector2.zero;
     }
-    
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Attack")
-        {
-            setAnim.SetTrigger("isKnockBack");
-        }
-        
-        
-    }
+
     
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position, aggroDistance);

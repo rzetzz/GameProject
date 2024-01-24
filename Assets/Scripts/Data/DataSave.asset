@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 12
   currentHealth: 12
-  sceneIndex: 1
+  sceneIndex: 0
   checkpointSceneIndex: 1
   checkpointId: 1
   playerFaceRight: 1
-  canDoubleJump: 0
-  canDash: 0
+  canDoubleJump: 1
+  canDash: 1
   canWallJump: 0
   canChargeDash: 0
   canAttackBow: 0
@@ -27,3 +27,9 @@ MonoBehaviour:
   playerDead: 0
   hp1: 1
   hp2: 0
+  hp3: 0
+  hp4: 0
+  hp5: 0
+  hp6: 0
+  hp7: 0
+  gamePaused: 0

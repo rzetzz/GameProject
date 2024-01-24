@@ -16,5 +16,6 @@ public class DataSave : ScriptableObject
     public bool event1;
     public bool playerDead;
     public bool hp1,hp2,hp3,hp4,hp5,hp6,hp7;
+    public bool gamePaused;
 }
 
